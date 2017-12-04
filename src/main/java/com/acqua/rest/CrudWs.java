@@ -1,5 +1,7 @@
 package com.acqua.rest;
 
+import org.springframework.http.ResponseEntity;
+
 import com.acqua.rest.requests.DeleteRequest;
 import com.acqua.rest.responses.BaseResponse;
 import com.acqua.rest.responses.ListResponse;
@@ -25,7 +27,7 @@ public interface CrudWs<T> {
 	 * 
 	 * @return {@link ReadResponse<T>} base response
 	 */
-	BaseResponse save(T t);
+	ResponseEntity<BaseResponse> save(T t);
 	
 	
 	
@@ -36,7 +38,7 @@ public interface CrudWs<T> {
 	 * 
 	 * @return {@link ReadResponse<T>} base response
 	 */
-	ReadResponse<T> read(String id);
+	ResponseEntity<ReadResponse<T>> read(String id);
 	
 	
 	
@@ -47,7 +49,7 @@ public interface CrudWs<T> {
 	 *  
 	 * @return {@link ReadResponse<T>} base response
 	 */
-	BaseResponse update(T t);
+	ResponseEntity<BaseResponse> update(T t);
 	
 	
 	
@@ -58,7 +60,7 @@ public interface CrudWs<T> {
 	 *  
 	 * @return {@link ReadResponse<T>} base response
 	 */
-	BaseResponse delete(DeleteRequest deleteRequest);
+	ResponseEntity<BaseResponse> delete(DeleteRequest deleteRequest);
 	
 	
 	
@@ -67,7 +69,7 @@ public interface CrudWs<T> {
 	 * 
 	 * @return {@link ListResponse<T>} list of all {@link T} stored in the database
 	 */
-	ListResponse<T> list();
+	ResponseEntity<ListResponse<T>> list();
 	
 	
 	

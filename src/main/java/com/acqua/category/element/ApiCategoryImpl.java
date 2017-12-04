@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import com.acqua.entities.Category;
@@ -38,38 +39,40 @@ public class ApiCategoryImpl implements CrudWs<Category> {
 	
 
 	@Override
-	public BaseResponse save(Category category) {
+	public ResponseEntity<BaseResponse> save(Category category) {
 		log.debug("saving a new category");
 		
 		categoryService.save(category);
 		
 		log.debug("saved new category with id {}", category.getId());
 		
-		return new BaseResponse(HttpStatus.CREATED.toString(), 
+		BaseResponse response = new BaseResponse(HttpStatus.CREATED.toString(), 
 				"New resource has been created", 
 				"saved new category '"+category.getName()+"' with id '"+category.getId()+"'");
+		
+		return new ResponseEntity<BaseResponse>(response, HttpStatus.CREATED);
 	}
 
 	@Override
-	public ReadResponse<Category> read(String id) {
+	public ResponseEntity<ReadResponse<Category>> read(String id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public BaseResponse update(Category t) {
+	public ResponseEntity<BaseResponse> update(Category t) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public BaseResponse delete(DeleteRequest deleteRequest) {
+	public ResponseEntity<BaseResponse> delete(DeleteRequest deleteRequest) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ListResponse<Category> list() {
+	public ResponseEntity<ListResponse<Category>> list() {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import com.acqua.entities.Element;
@@ -43,18 +44,22 @@ public class ApiElementImpl implements CrudWs<Element> {
 	 * Implementation of service for create a new {@link Element}
 	 * 
 	 * @param {@link Element} json
+	 * 
+	 * @return {@link ResponseEntity<BaseResponse>} response
 	 */
 	@Override
-	public BaseResponse save(Element element) {
+	public ResponseEntity<BaseResponse> save(Element element) {
 		log.debug("saving a new element");
 		
 		elementService.save(element);
 		
 		log.debug("saved new element with id {}", element.getId());
 		
-		return new BaseResponse(HttpStatus.CREATED.toString(), 
+		BaseResponse response = new BaseResponse(HttpStatus.CREATED.toString(), 
 				"New resource has been created", 
 				"saved new element '"+element.getDescription()+"' with id '"+element.getId()+"'");
+		
+		return new ResponseEntity<>(response, HttpStatus.CREATED);
 	}
 
 	
@@ -65,14 +70,15 @@ public class ApiElementImpl implements CrudWs<Element> {
 	 * 
 	 * @param {@link String} unique id
 	 * 
-	 * @return {@link ReadResponse<Element>} response
+	 * @return {@link ResponseEntity<ReadResponse<Element>>} response
 	 */
 	@Override
-	public ReadResponse<Element> read(String id) {
+	public ResponseEntity<ReadResponse<Element>> read(String id) {
 		
 		log.debug("request element with id '{}'", id);
 		
-		ReadResponse<Element> response = new ReadResponse<>();
+		ReadResponse<Element> body = new ReadResponse<>();
+		ResponseEntity<ReadResponse<Element>> response = null;
 		
 		if (StringUtils.isNotBlank(id)) {
 			
@@ -80,20 +86,23 @@ public class ApiElementImpl implements CrudWs<Element> {
 			
 			if (element != null) {
 				log.debug("Element with id '{}' exist", id);
-				response.setItem(element);
-				response.setStatusCode(HttpStatus.OK.toString());
-				response.setMessage("Element with id "+id+" exist");
-				response.setStatusMessage("OK");
+				body.setItem(element);
+				body.setStatusCode(HttpStatus.OK.toString());
+				body.setMessage("Element with id "+id+" exist");
+				body.setStatusMessage("OK");
+				response = new ResponseEntity<>(body, HttpStatus.OK);
 			} else {
 				log.debug("Element with id '{}' not found", id);
-				response.setStatusCode(HttpStatus.NOT_FOUND.toString());
-				response.setMessage("Element with id "+id+" not found");
+				body.setStatusCode(HttpStatus.NOT_FOUND.toString());
+				body.setMessage("Element with id "+id+" not found");
+				response = new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
 			}
 		} else {
 			log.debug("Parameter ID is not present");
-			response.setStatusCode(HttpStatus.BAD_REQUEST.toString());
-			response.setStatusMessage("ID is mandatory");
-			response.setMessage("ID parameter is mandatory");
+			body.setStatusCode(HttpStatus.BAD_REQUEST.toString());
+			body.setStatusMessage("ID is mandatory");
+			body.setMessage("ID parameter is mandatory");
+			response = new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
 		}
 		
 		return response;
@@ -106,22 +115,25 @@ public class ApiElementImpl implements CrudWs<Element> {
 	 * 
 	 * @param {@link Element} to update
 	 * 
-	 * @return {@link BaseResponse} response
+	 * @return {@link ResponseEntity<BaseResponse>} response
 	 */
 	@Override
-	public BaseResponse update(Element element) {
+	public ResponseEntity<BaseResponse> update(Element element) {
 		
-		BaseResponse response = new BaseResponse();
+		BaseResponse body = new BaseResponse();
+		ResponseEntity<BaseResponse> response = null;
 		
 		log.debug("updating element with id {}", element.getId());
 		
 		elementService.save(element);
 		
-		response.setStatusCode(HttpStatus.OK.toString());
-		response.setMessage("Element with id "+element.getId()+" updated");
-		response.setStatusMessage("OK");
+		body.setStatusCode(HttpStatus.OK.toString());
+		body.setMessage("Element with id "+element.getId()+" updated");
+		body.setStatusMessage("OK");
 		
 		log.debug("update element with id {}", element.getId());
+		
+		response = new ResponseEntity<>(body, HttpStatus.OK);
 		
 		return response;
 	}
@@ -133,24 +145,28 @@ public class ApiElementImpl implements CrudWs<Element> {
 	 * 
 	 * @param deleteRequest {@link DeleteRequest} request
 	 * 
-	 * @return {@link BaseResponse} response
+	 * @return {@link ResponseEntity<BaseResponse>} response
 	 */
 	@Override
-	public BaseResponse delete(DeleteRequest deleteRequest) {
+	public ResponseEntity<BaseResponse> delete(DeleteRequest deleteRequest) {
 		
-		BaseResponse response = new BaseResponse();
+		BaseResponse body = new BaseResponse();
+		ResponseEntity<BaseResponse> response = null;
+		
 		Element element = elementService.findById(deleteRequest.getId());
 		
 		if (element != null) {
 			elementService.delete(element);
 			
-			response.setStatusCode(HttpStatus.OK.toString());
-			response.setStatusMessage("OK");
-			response.setMessage("Element with id "+deleteRequest.getId()+" deleted successfully");
+			body.setStatusCode(HttpStatus.OK.toString());
+			body.setStatusMessage("OK");
+			body.setMessage("Element with id "+deleteRequest.getId()+" deleted successfully");
+			response = new ResponseEntity<>(body, HttpStatus.OK);
 		} else {
-			response.setStatusCode(HttpStatus.NOT_FOUND.toString());
-			response.setStatusMessage("Not found");
-			response.setMessage("Element with id "+deleteRequest.getId()+" not found");
+			body.setStatusCode(HttpStatus.NOT_FOUND.toString());
+			body.setStatusMessage("Not found");
+			body.setMessage("Element with id "+deleteRequest.getId()+" not found");
+			response = new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
 		}
 		
 		return response;
@@ -161,24 +177,27 @@ public class ApiElementImpl implements CrudWs<Element> {
 	/**
 	 * Implementation of a service that list all {@link Element} stored in database
 	 * 
-	 * @return {@link ListResponse<Element>} response
+	 * @return {@link ResponseEntity<ListResponse<Element>>} response
 	 */
 	@Override
-	public ListResponse<Element> list() {
+	public ResponseEntity<ListResponse<Element>> list() {
 		
-		ListResponse<Element> response = new ListResponse<>();
+		ListResponse<Element> body = new ListResponse<>();
+		ResponseEntity<ListResponse<Element>> response = null;
 		List<Element> list = elementService.list();
 		
-		response.setItems(list);
+		body.setItems(list);
 		
 		if (list.isEmpty()) {
-			response.setMessage("Elements collections is empty");
-			response.setStatusCode(HttpStatus.NO_CONTENT.toString());
-			response.setStatusMessage("No content");
+			body.setMessage("Elements collections is empty");
+			body.setStatusCode(HttpStatus.NO_CONTENT.toString());
+			body.setStatusMessage("No content");
+			response = new ResponseEntity<>(body, HttpStatus.NO_CONTENT);
 		} else {
-			response.setMessage("Found "+list.size()+" elements");
-			response.setStatusCode(HttpStatus.OK.toString());
-			response.setStatusMessage("Ok");
+			body.setMessage("Found "+list.size()+" elements");
+			body.setStatusCode(HttpStatus.OK.toString());
+			body.setStatusMessage("Ok");
+			response = new ResponseEntity<>(body, HttpStatus.OK);
 		}
 		
 		return response;

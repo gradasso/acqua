@@ -49,13 +49,13 @@ public class CategoryRestController implements CrudWs<Category> {
 	 */
 	@PostMapping(PathConstants.CREATE)
 	@Override
-	public BaseResponse save(@Valid @RequestBody Category category) {
+	public ResponseEntity<BaseResponse> save(@Valid @RequestBody Category category) {
 		return apiCategoryImpl.save(category);
 	}
 	
 	
 	@PostMapping("/create")
-	public ResponseEntity<?> saveNew(@Valid @RequestBody Category category) {
+	public ResponseEntity<BaseResponse> saveNew(@Valid @RequestBody Category category) {
 		return new ResponseEntity<BaseResponse>(new BaseResponse("200", "OK", "mex"), HttpStatus.CREATED);
 	}
 	
@@ -70,7 +70,7 @@ public class CategoryRestController implements CrudWs<Category> {
 	 */
 	@GetMapping(PathConstants.READ+"/{id}")
 	@Override
-	public ReadResponse<Category> read(@PathVariable String id) {
+	public ResponseEntity<ReadResponse<Category>> read(@PathVariable String id) {
 		return apiCategoryImpl.read(id);
 	}
 	
@@ -85,7 +85,7 @@ public class CategoryRestController implements CrudWs<Category> {
 	 */
 	@PatchMapping(PathConstants.UPDATE)
 	@Override
-	public BaseResponse update(@Valid @RequestBody Category category) {
+	public ResponseEntity<BaseResponse> update(@Valid @RequestBody Category category) {
 		return apiCategoryImpl.update(category);
 	}
 
@@ -100,7 +100,7 @@ public class CategoryRestController implements CrudWs<Category> {
 	 */
 	@DeleteMapping(PathConstants.DELETE)
 	@Override
-	public BaseResponse delete(@Valid @RequestBody DeleteRequest deleteRequest) {
+	public ResponseEntity<BaseResponse> delete(@Valid @RequestBody DeleteRequest deleteRequest) {
 		return apiCategoryImpl.delete(deleteRequest);
 	}
 	
@@ -113,7 +113,7 @@ public class CategoryRestController implements CrudWs<Category> {
 	 */
 	@GetMapping(PathConstants.LIST)
 	@Override
-	public ListResponse<Category> list() {
+	public ResponseEntity<ListResponse<Category>> list() {
 		return apiCategoryImpl.list();
 	}
 

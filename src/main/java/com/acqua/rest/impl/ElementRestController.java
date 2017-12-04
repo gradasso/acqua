@@ -3,6 +3,7 @@ package com.acqua.rest.impl;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -47,7 +48,7 @@ public class ElementRestController implements CrudWs<Element> {
 	 */
 	@PostMapping(PathConstants.CREATE)
 	@Override
-	public BaseResponse save(@Valid @RequestBody Element element) {
+	public ResponseEntity<BaseResponse> save(@Valid @RequestBody Element element) {
 		return apiElementImpl.save(element);
 	}
 	
@@ -62,7 +63,7 @@ public class ElementRestController implements CrudWs<Element> {
 	 */
 	@GetMapping(PathConstants.READ+"/{id}")
 	@Override
-	public ReadResponse<Element> read(@PathVariable String id) {
+	public ResponseEntity<ReadResponse<Element>> read(@PathVariable String id) {
 		return apiElementImpl.read(id);
 	}
 	
@@ -77,7 +78,7 @@ public class ElementRestController implements CrudWs<Element> {
 	 */
 	@PatchMapping(PathConstants.UPDATE)
 	@Override
-	public BaseResponse update(@Valid @RequestBody Element element) {
+	public ResponseEntity<BaseResponse> update(@Valid @RequestBody Element element) {
 		return apiElementImpl.update(element);
 	}
 
@@ -92,7 +93,7 @@ public class ElementRestController implements CrudWs<Element> {
 	 */
 	@DeleteMapping(PathConstants.DELETE)
 	@Override
-	public BaseResponse delete(@Valid @RequestBody DeleteRequest deleteRequest) {
+	public ResponseEntity<BaseResponse> delete(@Valid @RequestBody DeleteRequest deleteRequest) {
 		return apiElementImpl.delete(deleteRequest);
 	}
 	
@@ -105,7 +106,7 @@ public class ElementRestController implements CrudWs<Element> {
 	 */
 	@GetMapping(PathConstants.LIST)
 	@Override
-	public ListResponse<Element> list() {
+	public ResponseEntity<ListResponse<Element>> list() {
 		return apiElementImpl.list();
 	}
 
