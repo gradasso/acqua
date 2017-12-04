@@ -2,13 +2,28 @@ package com.acqua.entities;
 
 import java.util.List;
 
-import org.springframework.data.annotation.Id;
+import javax.validation.constraints.NotNull;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+
+
+/**
+ * Entity that represents the category of skills.
+ * For example: Program Language, Project Management, etc etc...
+ * 
+ * @author Christian Lusardi
+ * @version 1.0
+ *
+ */
+@Document(collection = "categories")
 public class Category {
 
 	@Id
 	private String id;
 
+	@NotNull
 	private String name;
 
 	private List<Element> elements;

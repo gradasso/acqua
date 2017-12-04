@@ -34,9 +34,22 @@ public class ApiConstants {
 	
 	
 	/**
+	 * Path for {@link Category} resource
+	 */
+	public static final String API_PATH_CATEGORY = "/category";
+	
+	
+	
+	/**
 	 * Full path for {@link Element} resource v.1
 	 */
 	public static final String API_V1_SKILL = API_CONTEXT_ROOT + API_VERSION_1 + API_PATH_ELEMENT;
+	
+	
+	/**
+	 * Full path for {@link Category} resource v.1
+	 */
+	public static final String API_V1_CATEGORY = API_CONTEXT_ROOT + API_VERSION_1 + API_PATH_CATEGORY;
 	
 	
 	
