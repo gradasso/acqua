@@ -3,7 +3,6 @@ package com.acqua.rest.impl;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.acqua.category.element.ApiCategoryImpl;
 import com.acqua.constants.ApiConstants;
 import com.acqua.constants.PathConstants;
 import com.acqua.entities.Category;
+import com.acqua.modules.category.ApiCategoryImpl;
 import com.acqua.rest.CrudWs;
 import com.acqua.rest.requests.DeleteRequest;
 import com.acqua.rest.responses.BaseResponse;
@@ -46,17 +45,13 @@ public class CategoryRestController implements CrudWs<Category> {
 	 * Service for create a new {@link Category}
 	 * 
 	 * @param {@link Category} json
+	 * 
+	 * @return {@link ResponseEntity<BaseResponse>} response
 	 */
 	@PostMapping(PathConstants.CREATE)
 	@Override
 	public ResponseEntity<BaseResponse> save(@Valid @RequestBody Category category) {
 		return apiCategoryImpl.save(category);
-	}
-	
-	
-	@PostMapping("/create")
-	public ResponseEntity<BaseResponse> saveNew(@Valid @RequestBody Category category) {
-		return new ResponseEntity<BaseResponse>(new BaseResponse("200", "OK", "mex"), HttpStatus.CREATED);
 	}
 	
 	
