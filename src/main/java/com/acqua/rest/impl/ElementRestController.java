@@ -33,7 +33,7 @@ import com.acqua.rest.responses.ReadResponse;
  *
  */
 @RestController
-@RequestMapping(path=ApiConstants.API_V1_SKILL)
+@RequestMapping(path=ApiConstants.API_V1_ELEMENT)
 public class ElementRestController implements CrudWs<Element> {
 	
 	@Autowired

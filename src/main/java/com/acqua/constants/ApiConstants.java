@@ -43,7 +43,7 @@ public class ApiConstants {
 	/**
 	 * Full path for {@link Element} resource v.1
 	 */
-	public static final String API_V1_SKILL = API_CONTEXT_ROOT + API_VERSION_1 + API_PATH_ELEMENT;
+	public static final String API_V1_ELEMENT = API_CONTEXT_ROOT + API_VERSION_1 + API_PATH_ELEMENT;
 	
 	
 	/**
