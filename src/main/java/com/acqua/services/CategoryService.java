@@ -1,12 +1,15 @@
 package com.acqua.services;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.acqua.entities.Category;
+import com.acqua.entities.Element;
 import com.acqua.repositories.CategoryRepository;
 
 
@@ -78,5 +81,52 @@ public class CategoryService {
 	 */
 	public List<Category> list() {
 		return categoryRepository.findAll();
+	}
+	
+	
+	
+	/**
+	 * Function to associate an {@link Element} to a container object 
+	 * 
+	 * @param id {@link String} unique identifier of container object
+	 * 
+	 * @param element {@link Element} object to associate to a container
+	 * 
+	 * @return {@link Category} updated container
+	 */
+	public Category associate(String id, Element element) {
+		Category result = null;
+		Optional<Category> category = categoryRepository.findById(id);
+		
+		if (category.isPresent()) {
+			result = associate(category.get(), element);
+		}
+		
+		return result;
+	}
+	
+	
+	
+	/**
+	 * Function to associate an {@link Element} to a {@link Category} object 
+	 * 
+	 * @param category {@link Category} container object
+	 * 
+	 * @param element {@link Element} object to associate to a container
+	 * 
+	 * @return {@link Category} updated container
+	 */
+	public Category associate(Category category, Element element) {
+		Category result = category;
+		
+		List<Element> elements = result.getElements();
+		
+		if (CollectionUtils.isNotEmpty(elements)) {
+			elements.add(element);
+		} else {
+			elements = Arrays.asList(element);
+		}
+		
+		return result;
 	}
 }

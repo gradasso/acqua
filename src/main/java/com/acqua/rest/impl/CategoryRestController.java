@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,8 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.acqua.constants.ApiConstants;
 import com.acqua.constants.PathConstants;
 import com.acqua.entities.Category;
+import com.acqua.entities.Element;
 import com.acqua.modules.category.ApiCategoryImpl;
 import com.acqua.rest.CrudWs;
+import com.acqua.rest.ResourceManagementWs;
+import com.acqua.rest.requests.AssociationRequest;
+import com.acqua.rest.requests.AssociationRequestExt;
 import com.acqua.rest.requests.DeleteRequest;
 import com.acqua.rest.responses.BaseResponse;
 import com.acqua.rest.responses.ListResponse;
@@ -34,7 +39,7 @@ import com.acqua.rest.responses.ReadResponse;
  */
 @RestController
 @RequestMapping(path=ApiConstants.API_V1_CATEGORY)
-public class CategoryRestController implements CrudWs<Category> {
+public class CategoryRestController implements CrudWs<Category>, ResourceManagementWs<Category, Element> {
 	
 	@Autowired
 	private ApiCategoryImpl apiCategoryImpl;
@@ -110,6 +115,36 @@ public class CategoryRestController implements CrudWs<Category> {
 	@Override
 	public ResponseEntity<ListResponse<Category>> list() {
 		return apiCategoryImpl.list();
+	}
+
+
+	
+	/**
+	 * Service to associate entity {@link Element} to a container entity identified by its id
+	 * 
+	 * @param request {@link AssociationRequest<Element>}
+	 * 
+	 * @return {@link ResponseEntity<BaseResponse>} response
+	 */
+	@PutMapping(PathConstants.ASSOCIATE)
+	@Override
+	public ResponseEntity<BaseResponse> associateEntity(@Valid @RequestBody AssociationRequest<Element> request) {
+		return apiCategoryImpl.associateEntity(request);
+	}
+
+
+
+	/**
+	 * Service to associate entity {@link Element} to a container entity {@link Category}
+	 * 
+	 * @param request {@link AssociationRequestExt<Category, Element>}
+	 * 
+	 * @return {@link ResponseEntity<BaseResponse>} response
+	 */
+	@PutMapping(PathConstants.ASSOCIATE_EXT)
+	@Override
+	public ResponseEntity<BaseResponse> associateEntity(@Valid @RequestBody AssociationRequestExt<Category, Element> request) {
+		return apiCategoryImpl.associateEntity(request);
 	}
 
 }

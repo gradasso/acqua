@@ -63,6 +63,18 @@ public class PathConstants {
 	public static final String LIST = "/list";
 	
 	
+	/**
+	 * Associate path
+	 */
+	public static final String ASSOCIATE = "/assoc";
+	
+	
+	/**
+	 * Associate extended path
+	 */
+	public static final String ASSOCIATE_EXT = "/assoc/ext";
+	
+	
 	
 	
 	

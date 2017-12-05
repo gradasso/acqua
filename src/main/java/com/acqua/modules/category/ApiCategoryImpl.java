@@ -11,7 +11,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import com.acqua.entities.Category;
+import com.acqua.entities.Element;
 import com.acqua.rest.CrudWs;
+import com.acqua.rest.ResourceManagementWs;
+import com.acqua.rest.requests.AssociationRequest;
+import com.acqua.rest.requests.AssociationRequestExt;
 import com.acqua.rest.requests.DeleteRequest;
 import com.acqua.rest.responses.BaseResponse;
 import com.acqua.rest.responses.ListResponse;
@@ -28,7 +32,7 @@ import com.acqua.services.CategoryService;
  *
  */
 @Component
-public class ApiCategoryImpl implements CrudWs<Category> {
+public class ApiCategoryImpl implements CrudWs<Category>, ResourceManagementWs<Category, Element> {
 	
 	
 	
@@ -197,6 +201,51 @@ public class ApiCategoryImpl implements CrudWs<Category> {
 			body.setStatusMessage("Ok");
 			response = new ResponseEntity<>(body, HttpStatus.OK);
 		}
+		
+		return response;
+	}
+
+
+
+	/**
+	 * Implementation of a service to associate entity {@link Element} to a container entity identified by its id
+	 * 
+	 * @param request {@link AssociationRequest<Element>}
+	 * 
+	 * @return {@link ResponseEntity<BaseResponse>} response
+	 */
+	@Override
+	public ResponseEntity<BaseResponse> associateEntity(AssociationRequest<Element> request) {
+		categoryService.associate(request.getIdOfContainerObject(), request.getObjectToAssociate());
+		
+		ResponseEntity<BaseResponse> response = new ResponseEntity<BaseResponse>(
+				new BaseResponse(HttpStatus.OK.toString(), 
+						"OK", 
+						"Element with it '"+request.getObjectToAssociate().getId()+"' was associated successfully to a Category with id '"+request.getIdOfContainerObject()+"'"), 
+				HttpStatus.OK);
+		
+		return response;
+	}
+
+
+
+	/**
+	 * Implementation of a service to associate entity {@link Element} to a container entity {@link Category}
+	 * 
+	 * @param request {@link AssociationRequestExt<Category, Element>}
+	 * 
+	 * @return {@link ResponseEntity<BaseResponse>} response
+	 */
+	@Override
+	public ResponseEntity<BaseResponse> associateEntity(AssociationRequestExt<Category, Element> request) {
+		
+		categoryService.associate(request.getContainerObject(), request.getObjectToAssociate());
+		
+		ResponseEntity<BaseResponse> response = new ResponseEntity<BaseResponse>(
+				new BaseResponse(HttpStatus.OK.toString(), 
+						"OK", 
+						"Element with it '"+request.getObjectToAssociate().getId()+"' was associated successfully to a Category with id '"+request.getIdOfContainerObject()+"'"), 
+				HttpStatus.OK);
 		
 		return response;
 	}
