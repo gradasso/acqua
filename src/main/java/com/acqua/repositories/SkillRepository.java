@@ -2,7 +2,6 @@ package com.acqua.repositories;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-import com.acqua.entities.Employee;
 import com.acqua.entities.Skill;
 
 /**
