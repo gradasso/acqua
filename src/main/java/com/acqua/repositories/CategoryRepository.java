@@ -11,7 +11,7 @@ import com.acqua.entities.Category;
 
 
 /**
- * Repository for {@link Category} managment
+ * Repository for {@link Category} management
  * 
  * @author Christian Lusardi
  * @version 1.0
