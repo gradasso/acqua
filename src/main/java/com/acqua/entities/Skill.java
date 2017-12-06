@@ -2,6 +2,14 @@ package com.acqua.entities;
 
 import org.springframework.data.annotation.Id;
 
+
+/**
+ * Skill entity
+ * 
+ * @author Christian Lusardi
+ * @version 1.0
+ *
+ */
 public class Skill {
 
 	@Id
@@ -12,6 +20,8 @@ public class Skill {
 	private int grade;
 
 	private double yearOfExperience;
+	
+	private String note;
 
 	public String getId() {
 		return id;
@@ -43,6 +53,14 @@ public class Skill {
 
 	public void setYearOfExperience(double yearOfExperience) {
 		this.yearOfExperience = yearOfExperience;
+	}
+
+	public String getNote() {
+		return note;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
 	}
 
 }
