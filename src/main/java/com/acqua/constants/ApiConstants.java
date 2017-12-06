@@ -41,15 +41,30 @@ public class ApiConstants {
 	
 	
 	/**
+	 * Path for {@link Employee} resource
+	 */
+	public static final String API_PATH_EMPLOYEE = "/employee";
+	
+	
+	
+	/**
 	 * Full path for {@link Element} resource v.1
 	 */
 	public static final String API_V1_ELEMENT = API_CONTEXT_ROOT + API_VERSION_1 + API_PATH_ELEMENT;
+	
 	
 	
 	/**
 	 * Full path for {@link Category} resource v.1
 	 */
 	public static final String API_V1_CATEGORY = API_CONTEXT_ROOT + API_VERSION_1 + API_PATH_CATEGORY;
+	
+	
+	
+	/**
+	 * Full path for {@link Employee} resource v.1
+	 */
+	public static final String API_V1_EMPLOYEE = API_CONTEXT_ROOT + API_VERSION_1 + API_PATH_EMPLOYEE;
 	
 	
 	
