@@ -11,7 +11,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import com.acqua.entities.Employee;
+import com.acqua.entities.Skill;
 import com.acqua.rest.CrudWs;
+import com.acqua.rest.ResourceManagementWs;
+import com.acqua.rest.requests.AssociationRequest;
+import com.acqua.rest.requests.AssociationRequestExt;
 import com.acqua.rest.requests.DeleteRequest;
 import com.acqua.rest.responses.BaseResponse;
 import com.acqua.rest.responses.ListResponse;
@@ -28,7 +32,7 @@ import com.acqua.services.EmployeeService;
  *
  */
 @Component
-public class ApiEmployeeImpl implements CrudWs<Employee> {
+public class ApiEmployeeImpl implements CrudWs<Employee>, ResourceManagementWs<Employee, Skill> {
 	
 	
 	//Logger
@@ -199,6 +203,50 @@ public class ApiEmployeeImpl implements CrudWs<Employee> {
 			body.setStatusMessage("Ok");
 			response = new ResponseEntity<>(body, HttpStatus.OK);
 		}
+		
+		return response;
+	}
+
+
+
+	/**
+	 * Service to associate entity {@link Skill} to a container entity identified by its id
+	 * 
+	 * @param request {@link AssociationRequest<Skill>}
+	 * 
+	 * @return {@link ResponseEntity<BaseResponse>} response
+	 */
+	@Override
+	public ResponseEntity<BaseResponse> associateEntity(AssociationRequest<Skill> request) {
+		employeeService.associate(request.getIdOfContainerObject(), request.getObjectToAssociate());
+		
+		ResponseEntity<BaseResponse> response = new ResponseEntity<BaseResponse>(
+				new BaseResponse(HttpStatus.OK.toString(), 
+						"OK", 
+						"Skill with id '"+request.getObjectToAssociate().getId()+"' was associated successfully to an Employee with id '"+request.getIdOfContainerObject()+"'"), 
+				HttpStatus.OK);
+		
+		return response;
+	}
+
+
+
+	/**
+	 * Service to associate entity {@link Skill} to a container entity {@link Employee}
+	 * 
+	 * @param request {@link AssociationRequestExt<Employee, Skill>}
+	 * 
+	 * @return {@link ResponseEntity<BaseResponse>} response
+	 */
+	@Override
+	public ResponseEntity<BaseResponse> associateEntity(AssociationRequestExt<Employee, Skill> request) {
+		employeeService.associate(request.getContainerObject(), request.getObjectToAssociate());
+		
+		ResponseEntity<BaseResponse> response = new ResponseEntity<BaseResponse>(
+				new BaseResponse(HttpStatus.OK.toString(), 
+						"OK", 
+						"Skill with id '"+request.getObjectToAssociate().getId()+"' was associated successfully to an Employee with id '"+request.getIdOfContainerObject()+"'"), 
+				HttpStatus.OK);
 		
 		return response;
 	}

@@ -16,8 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.acqua.constants.ApiConstants;
 import com.acqua.constants.PathConstants;
 import com.acqua.entities.Employee;
+import com.acqua.entities.Skill;
 import com.acqua.modules.employee.ApiEmployeeImpl;
 import com.acqua.rest.CrudWs;
+import com.acqua.rest.ResourceManagementWs;
+import com.acqua.rest.requests.AssociationRequest;
+import com.acqua.rest.requests.AssociationRequestExt;
 import com.acqua.rest.requests.DeleteRequest;
 import com.acqua.rest.responses.BaseResponse;
 import com.acqua.rest.responses.ListResponse;
@@ -34,7 +38,7 @@ import com.acqua.rest.responses.ReadResponse;
  */
 @RestController
 @RequestMapping(path=ApiConstants.API_V1_EMPLOYEE)
-public class EmployeeRestController implements CrudWs<Employee> {
+public class EmployeeRestController implements CrudWs<Employee>, ResourceManagementWs<Employee, Skill> {
 	
 	
 	
@@ -109,6 +113,20 @@ public class EmployeeRestController implements CrudWs<Employee> {
 	@Override
 	public ResponseEntity<ListResponse<Employee>> list() {
 		return apiEmployeeImpl.list();
+	}
+
+
+
+	@Override
+	public ResponseEntity<BaseResponse> associateEntity(AssociationRequest<Skill> request) {
+		return apiEmployeeImpl.associateEntity(request);
+	}
+
+
+
+	@Override
+	public ResponseEntity<BaseResponse> associateEntity(AssociationRequestExt<Employee, Skill> request) {
+		return apiEmployeeImpl.associateEntity(request);
 	}
 
 }

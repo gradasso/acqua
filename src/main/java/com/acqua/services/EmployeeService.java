@@ -1,12 +1,15 @@
 package com.acqua.services;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.acqua.entities.Employee;
+import com.acqua.entities.Skill;
 import com.acqua.repositories.EmployeeRepository;
 
 
@@ -78,5 +81,52 @@ public class EmployeeService {
 	 */
 	public List<Employee> list() {
 		return employeeRepository.findAll();
+	}
+	
+	
+	
+	/**
+	 * Function to associate an {@link Skill} to a container object 
+	 * 
+	 * @param id {@link String} unique identifier of container object
+	 * 
+	 * @param element {@link Skill} object to associate to a container
+	 * 
+	 * @return {@link Employee} updated container
+	 */
+	public Employee associate(String id, Skill skill) {
+		Employee result = null;
+		Optional<Employee> employee = employeeRepository.findById(id);
+		
+		if (employee.isPresent()) {
+			result = associate(employee.get(), skill);
+		}
+		
+		return result;
+	}
+	
+	
+	
+	/**
+	 * Function to associate a {@link Skill} to a {@link Employee} object 
+	 * 
+	 * @param category {@link Employee} container object
+	 * 
+	 * @param element {@link Skill} object to associate to a container
+	 * 
+	 * @return {@link Employee} updated container
+	 */
+	public Employee associate(Employee employee, Skill skill) {
+		Employee result = employee;
+		
+		List<Skill> skills = result.getSkills();
+		
+		if (CollectionUtils.isNotEmpty(skills)) {
+			skills.add(skill);
+		} else {
+			skills = Arrays.asList(skill);
+		}
+		
+		return result;
 	}
 }
