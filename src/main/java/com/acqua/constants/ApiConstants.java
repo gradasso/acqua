@@ -1,5 +1,6 @@
 package com.acqua.constants;
 
+import com.acqua.entities.Department;
 import com.acqua.entities.Element;
 
 /**
@@ -46,6 +47,12 @@ public class ApiConstants {
 	public static final String API_PATH_EMPLOYEE = "/employee";
 	
 	
+	/**
+	 * Path for {@link Department} resource
+	 */
+	public static final String API_PATH_DEPARTMENT = "/department";
+	
+	
 	
 	/**
 	 * Full path for {@link Element} resource v.1
@@ -65,6 +72,13 @@ public class ApiConstants {
 	 * Full path for {@link Employee} resource v.1
 	 */
 	public static final String API_V1_EMPLOYEE = API_CONTEXT_ROOT + API_VERSION_1 + API_PATH_EMPLOYEE;
+	
+	
+	
+	/**
+	 * Full path for {@link Department} resource v.1
+	 */
+	public static final String API_V1_DEPARTMENT = API_CONTEXT_ROOT + API_VERSION_1 + API_PATH_DEPARTMENT;
 	
 	
 	
