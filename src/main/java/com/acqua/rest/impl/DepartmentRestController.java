@@ -33,7 +33,7 @@ import com.acqua.rest.responses.ReadResponse;
  *
  */
 @RestController
-@RequestMapping(path=ApiConstants.API_V1_ELEMENT)
+@RequestMapping(path=ApiConstants.API_V1_DEPARTMENT)
 public class DepartmentRestController implements CrudWs<Department> {
 	
 	
