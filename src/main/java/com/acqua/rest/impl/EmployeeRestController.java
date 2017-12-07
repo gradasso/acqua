@@ -117,6 +117,13 @@ public class EmployeeRestController implements CrudWs<Employee>, ResourceManagem
 
 
 
+	/**
+	 * Service to associate entity {@link Skill} to a container entity identified by its id
+	 * 
+	 * @param request {@link AssociationRequest<Skill>}
+	 * 
+	 * @return {@link ResponseEntity<BaseResponse>} response
+	 */
 	@Override
 	public ResponseEntity<BaseResponse> associateEntity(AssociationRequest<Skill> request) {
 		return apiEmployeeImpl.associateEntity(request);
@@ -124,6 +131,13 @@ public class EmployeeRestController implements CrudWs<Employee>, ResourceManagem
 
 
 
+	/**
+	 * Service to associate entity {@link Skill} to a container entity {@link Employee}
+	 * 
+	 * @param request {@link AssociationRequestExt<Employee, Skill>}
+	 * 
+	 * @return {@link ResponseEntity<BaseResponse>} response
+	 */
 	@Override
 	public ResponseEntity<BaseResponse> associateEntity(AssociationRequestExt<Employee, Skill> request) {
 		return apiEmployeeImpl.associateEntity(request);
