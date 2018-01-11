@@ -59,7 +59,13 @@ public class ApiConstants {
 	 * Path for {@link Skill} resource
 	 */
 	public static final String API_PATH_SKILL = "/skill";
+
 	
+	
+	/**
+	 * Path for {@link User} resource
+	 */
+	public static final String API_PATH_USER = "/user";
 	
 	
 	/**
@@ -94,7 +100,13 @@ public class ApiConstants {
 	 * Full path for {@link Skill} resource v.1
 	 */
 	public static final String API_V1_SKILL = API_CONTEXT_ROOT + API_VERSION_1 + API_PATH_SKILL;
+
 	
+	
+	/**
+	 * Full path for {@link User} resource v.1
+	 */
+	public static final String API_V1_USER = API_CONTEXT_ROOT + API_VERSION_1 + API_PATH_USER;
 	
 	
 	/**
