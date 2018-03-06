@@ -22,7 +22,7 @@ import com.acqua.security.filters.JWTAuthorizationFilter;
 
 
 /**
- * Custom security configutions
+ * Custom security configurations
  * 
  * @author Christian Lusardi
  * @version 1.0
