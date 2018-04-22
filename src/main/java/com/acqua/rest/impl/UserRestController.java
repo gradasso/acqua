@@ -13,25 +13,23 @@ import com.acqua.entities.User;
 import com.acqua.repositories.UserRepository;
 
 @RestController
-@RequestMapping(path=ApiConstants.API_V1_USER)
+@RequestMapping(path = ApiConstants.API_V1_USER)
 public class UserRestController {
 
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+	@PostMapping(PathConstants.CREATE)
+	public void signUp(@RequestBody User user) {
+		if (userRepository.findByUsername(user.getUsername()) == null) {
+			user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+			userRepository.save(user);
+		} else {
 
+		}
+	}
 
-    @PostMapping(PathConstants.CREATE)
-    public void signUp(@RequestBody User user) {
-    	if (userRepository.findByUsername(user.getUsername()) == null) {
-	        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-	        userRepository.save(user);
-    	} else {
-    		
-    	}
-    }
-    
 }
