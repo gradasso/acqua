@@ -1,4 +1,4 @@
-package com.acqua.security.config;
+package com.acqua.security.filters;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,7 +23,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
+
+
+/**
+ * Authentication filter
+ * 
+ * @author Christian Lusardi
+ * @version 1.0
+ *
+ */
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
+	
     private AuthenticationManager authenticationManager;
 
     public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
@@ -40,7 +50,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                             creds.getUsername(),
                             creds.getPassword(),
                             new ArrayList<>())
-            );
+            		);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

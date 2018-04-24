@@ -11,13 +11,26 @@ import org.springframework.stereotype.Service;
 
 import com.acqua.repositories.UserRepository;
 
+
+
+/**
+ * Service for user detail
+ * 
+ * @author Christian Lusardi
+ * @version 1.0
+ *
+ */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
    
 	@Autowired
 	private UserRepository userRepository;
 
-
+	
+	
+	/**
+	 * Function to retrieve {@link UserDetails} from database
+	 */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         com.acqua.entities.User applicationUser = userRepository.findByUsername(username);

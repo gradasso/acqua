@@ -16,7 +16,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.acqua.constants.SecurityConstants;
-import com.acqua.security.config.JWTAuthenticationFilter;
+import com.acqua.security.filters.JWTAuthenticationFilter;
 import com.acqua.security.filters.JWTAuthorizationFilter;
 
 

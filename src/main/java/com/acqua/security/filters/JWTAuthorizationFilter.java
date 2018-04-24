@@ -17,6 +17,14 @@ import com.acqua.constants.SecurityConstants;
 
 import io.jsonwebtoken.Jwts;
 
+
+/**
+ * Authorization filter
+ * 
+ * @author Christian Lusardi
+ * @version 1.0
+ *
+ */
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
 	public JWTAuthorizationFilter(AuthenticationManager authManager) {
