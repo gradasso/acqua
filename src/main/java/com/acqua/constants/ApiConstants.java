@@ -68,6 +68,7 @@ public class ApiConstants {
 	public static final String API_PATH_USER = "/user";
 	
 	
+	
 	/**
 	 * Full path for {@link Element} resource v.1
 	 */
@@ -107,6 +108,7 @@ public class ApiConstants {
 	 * Full path for {@link User} resource v.1
 	 */
 	public static final String API_V1_USER = API_CONTEXT_ROOT + API_VERSION_1 + API_PATH_USER;
+	
 	
 	
 	/**
