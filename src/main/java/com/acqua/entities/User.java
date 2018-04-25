@@ -6,6 +6,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.acqua.constants.DatabaseConstants;
+
 
 
 /**
@@ -15,7 +17,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * @version 1.0
  *
  */
-@Document(collection = "users")
+@Document(collection = DatabaseConstants.COLLECTION_USERS)
 public class User {
 	
 	@Id

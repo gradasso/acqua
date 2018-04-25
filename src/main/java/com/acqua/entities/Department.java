@@ -7,6 +7,10 @@ import javax.validation.constraints.NotNull;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.acqua.constants.DatabaseConstants;
+
+
+
 /**
  * Department entity
  * 
@@ -14,7 +18,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * @version 1.0
  *
  */
-@Document(collection="departments")
+@Document(collection=DatabaseConstants.COLLECTION_DEPARTMENTS)
 public class Department {
 
 	@Id

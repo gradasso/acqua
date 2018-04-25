@@ -1,6 +1,10 @@
 package com.acqua.entities;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import com.acqua.constants.DatabaseConstants;
+
 
 
 /**
@@ -10,6 +14,7 @@ import org.springframework.data.annotation.Id;
  * @version 1.0
  *
  */
+@Document(collection=DatabaseConstants.COLLECTION_SKILLS)
 public class Skill {
 
 	@Id
